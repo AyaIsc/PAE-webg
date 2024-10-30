@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/pae.css}" />
+</head>
+<body>
+    <header> Details du cours </header>
+    <main>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Sigle</th>
+                    <th>Titre</th>
+                    <th>Credits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${cours.code}"></td>
+                    <td th:text="${cours.intitule}"></td>
+                    <td th:text="${cours.credits}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/courses}">Retour à la liste des cours</a>
+
+
+    </main>
+
+</body>
+</html>

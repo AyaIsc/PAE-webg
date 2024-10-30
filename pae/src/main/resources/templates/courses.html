@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des cours</title>
+    <link rel="stylesheet" th:href="@{/css/pae.css}" />
+</head>
+<body>
+    <header> Liste des cours </header>
+    <main>
+        <!--<div th:if="${!course.empty}"> -->
+        <div th:unless="${courses.empty}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code du Cours</th>
+                        <th>Intitulé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cours : ${courses}">
+                        <td th:text="${cours.id}"></td>
+                        <td>
+                            <a th:href="@{/details/{codeC}(codeC=${cours.code}) }" th:text="${cours.code}"></a>
+                        </td>
+                        <td th:text="${cours.intitule}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if = "${courses.empty}">
+            <a> (Aucun cours)</a>
+        </div>
+    
+    </main>
+
+</body>
+</html>
