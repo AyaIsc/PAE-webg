@@ -34,5 +34,6 @@ public class AppStartupRunner implements CommandLineRunner {
 
         studentService.displayStudentCourses("S001");
         */
+        
     }
 }

@@ -7,21 +7,28 @@
     <link rel="stylesheet" th:href="@{/css/pae.css}" />
 </head>
 <body>
+    
+    <header th:replace="~{fragments/main.html::headerId}"></header>
+
+
+    <nav th:replace="~{fragments/main.html::navbar}"></nav>
+ 
     <header> Liste des cours </header>
     <main>
-        <!--<div th:if="${!course.empty}"> -->
+        <div th:if="${errorMessage}" class="error">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        
         <div th:unless="${courses.empty}">
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Code du Cours</th>
-                        <th>Intitulé</th>
+                        <th th:text="#{course.code}">Code du Cours</th>
+                        <th th:text="#{course.title}">Intitulé</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="cours : ${courses}">
-                        <td th:text="${cours.id}"></td>
                         <td>
                             <a th:href="@{/details/{codeC}(codeC=${cours.code}) }" th:text="${cours.code}"></a>
                         </td>
@@ -33,6 +40,29 @@
         <div th:if = "${courses.empty}">
             <a> (Aucun cours)</a>
         </div>
+
+    <div class="form-container" sec:authorize="isAuthenticated() and hasAuthority('SECRETARIAT')" >
+       <div class="form-container">
+            <h2 th:text="#{course.add}" >Ajouter un cours</h2>
+            <form th:action="@{/courses/add}" th:object="${newCours}" method="post">
+                <div th:if="${#fields.hasErrors('code')}" class="error" th:errors="*{code}">Erreur pour le code</div>
+                <label for="code">Code:</label>
+                <input type="text" id="code" th:field="*{code}" required />
+            
+                <div th:if="${#fields.hasErrors('intitule')}" class="error" th:errors="*{intitule}">Erreur pour l'intitulé</div>
+                <label th:text="#{course.title}" for="intitule">Intitulé:</label>
+                <input type="text" id="intitule" th:field="*{intitule}" required />
+            
+                <div th:if="${#fields.hasErrors('credits')}" class="error" th:errors="*{credits}">Erreur pour les crédits</div>
+                <label for="credits">Crédits:</label>
+                <input type="text" id="credits" th:field="*{credits}" required />
+            
+                <button type="submit">Ajouter</button>
+            </form>
+            
+        </div>
+    
+    </div>    
     
     </main>
 

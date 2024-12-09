@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil - Gestion du Programme des Étudiants</title>
+    <title>Erreur</title>
     <link rel="stylesheet" th:href="@{/css/pae.css}" />
 </head>
 <body>
-    
+
     <header th:replace="~{fragments/main.html::headerId}"></header>
 
-    
     <nav th:replace="~{fragments/main.html::navbar}"></nav>
-
-    <main>
-        <p>Bienvenue sur la page de gestion des PAE des élèves !</p>
-        <div th:if="${#authentication.name}">
-            Connecté en tant que : <span th:text="${#authentication.name}"></span>
-        </div>
-        
-    </main>
     
-
-
-    <footer th:replace="~{fragments/main.html::footer}"></footer>
+    <header>Erreur</header>
+    <main>
+        <p th:text="${errorMessage}"></p>
+        <a th:href="@{/courses}">Retour à la liste des cours</a>
+    </main>
 </body>
 </html>

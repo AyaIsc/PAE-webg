@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme annuel des étudiants</title>
+    <link rel="stylesheet" th:href="@{/css/pae.css}" />
+</head>
+<body>
+    <header th:fragment="headerId">
+        <img th:src="@{/css/Logo-esi.png}" alt="School's Logo" style="max-width: 50px; margin-right: 10px;">
+        <h1 th:text="#{menu.title}">Programme annuel des étudiants</h1>
+        <h2>HE2B-ÉSI PAE 2024-2025</h2>
+    </header>
+
+    <nav th:fragment="navbar">
+        <ul class="navbar-nav" style="display: flex; list-style-type: none; padding: 10;">
+            <li class="nav-item" style="margin-right: 15px;">
+                <a th:text="#{menu.home}" class="nav-link" th:href="@{/}">Accueil</a>
+            </li>
+            <li class="nav-item" style="margin-right: 15px;">
+                <a th:text="#{menu.courses}" class="nav-link" th:href="@{/courses}">Cours</a>
+            </li>
+            
+            <div sec:authorize="isAuthenticated() and hasAuthority('SECRETARIAT')">
+                <li class="nav-item">
+                    <a th:text="#{menu.students}" class="nav-link" th:href="@{/students}">Étudiants</a>
+                </li>
+            </div>
+                     
+            
+           
+            <li class="nav-item">
+            
+            <form method="get" style="display: inline;">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="fr" th:selected="${#locale.language == 'fr'}">Français</option>
+                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                </select>
+            </form>
+
+            <form method="POST" th:action="@{/logout}">
+                <button type="submit">Logout</button>
+            </form>
+                
+            </li>
+        </ul>
+    </nav>
+
+    <h1>Bienvenue sur le site.</h1>
+    <a th:href="@{/private}">Espace privé</a>
+   
+
+    <footer th:fragment="footer">
+        <p>&copy; 2024 - Gestion du Programme des Étudiants</p>
+    </footer>
+</body>
+</html>

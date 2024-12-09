@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des étudiants</title>
+    <link rel="stylesheet" th:href="@{/css/pae.css}" />
+</head>
+<body>
+    <header th:replace="~{fragments/main.html::headerId}"></header>
+    <nav th:replace="~{fragments/main.html::navbar}"></nav>
+
+    <form th:action="@{/students}" method="get">
+        <label for="name">Recherche par le nom:</label>
+        <input type="text" id="name" name="name" placeholder="Entrez un nom" th:value="${param.name}"/>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <h2>Liste des étudiants</h2>
+
+    <div th:replace="~{fragments/student-list :: studentListFragment(${studentsList})}"></div>
+
+    <div class="form-container" sec:authorize="isAuthenticated() and hasAuthority('SECRETARIAT')" >
+        <div class="form-container">
+            <h3>Ajouter un nouvel étudiant</h3>
+            
+            <form th:action="@{/students/add}" th:object="${newStudent}" method="post">
+                <label for="matricule">Matricule:</label>
+                <input type="number" id="matricule" th:field="*{matricule}" required />
+                <div class="error" th:if="${#fields.hasErrors('matricule')}" th:errors="*{matricule}">Matricule invalide</div>
+
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" th:field="*{nom}" required />
+                <div class="error" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">Nom invalide</div>
+
+                <label for="genre">Genre:</label>
+                <select id="genre" th:field="*{genre}" required>
+                    <option value="" disabled>Choisissez le genre</option>
+                    <option value="F">F</option>
+                    <option value="M">M</option>
+                </select>
+
+                <label for="section">Section:</label>
+                <select id="section" th:field="*{section}" required>
+                    <option value="" disabled>Choisissez la section</option>
+                    <option value="Développement">Développement</option>
+                    <option value="Industriel">Industriel</option>
+                    <option value="Réseau">Réseau</option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('section')}" th:errors="*{section}">Section invalide</div>
+
+                <button type="submit">Ajouter Étudiant</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

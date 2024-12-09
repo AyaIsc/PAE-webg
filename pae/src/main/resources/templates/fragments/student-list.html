@@ -1,0 +1,19 @@
+
+<div th:fragment="studentListFragment(studentsList)">
+    <table>
+        <thead>
+            <tr>
+                <th th:text="#{student.matricule}">Matricule</th>
+                <th th:text="#{student.name}">Nom</th>                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${studentsList}">
+                <td th:text="${student.matricule}"></td>
+                <td>
+                    <a th:href="@{/student/{matricule}(matricule=${student.matricule})}" th:text="${student.nom}"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

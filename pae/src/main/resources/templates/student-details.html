@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de l'étudiant</title>
+    <link rel="stylesheet" th:href="@{/css/pae.css}" />
+</head>
+<body>
+    <header th:replace="~{fragments/main.html::headerId}"></header>
+    <nav th:replace="~{fragments/main.html::navbar}"></nav>
+    <table>
+        <thead>
+            <tr>
+                <th>Attribut</th>
+                <th>Détail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Matricule :</strong></td>
+                <td><span th:text="${student.matricule}"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Nom :</strong></td>
+                <td><span th:text="${student.nom}"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Genre :</strong></td>
+                <td><span th:text="${student.genre}"></span></td>
+            </tr>
+            <tr>
+                <td><strong>Section :</strong></td>
+                <td><span th:text="${student.section}"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Cours suivis</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Intitulé</th>
+                <th>Crédits</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="course : ${coursesList}">
+                <td th:text="${course.code}"></td>
+                <td th:text="${course.intitule}"></td>
+                <td th:text="${course.credits}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/students">Retour à la liste des étudiants</a>
+</body>
+</html>

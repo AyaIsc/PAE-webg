@@ -7,9 +7,14 @@
     <link rel="stylesheet" th:href="@{/css/pae.css}" />
 </head>
 <body>
+ 
+    <header th:replace="~{fragments/main.html::headerId}"></header>
+
+    <nav th:replace="~{fragments/main.html::navbar}"></nav>
+    
     <header> Details du cours </header>
     <main>
-    
+        <h1 th:text="${cours.intitule}"></h1>
         <table>
             <thead>
                 <tr>
@@ -23,6 +28,24 @@
                     <td th:text="${cours.code}"></td>
                     <td th:text="${cours.intitule}"></td>
                     <td th:text="${cours.credits}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Genre</th>
+                    <th>Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="eleve : ${students}">
+                    <td th:text="${eleve.matricule}"></td>
+                    <td th:text="${eleve.nom}"></td>
+                    <td th:text="${eleve.genre}"></td>
+                    <td th:text="${eleve.section}"></td>
                 </tr>
             </tbody>
         </table>
